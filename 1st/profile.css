@@ -22,6 +22,9 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 3px;
   font-weight: 700;
+  text-align: center;
+  background-color:#1d4ed8;
+  
 }
 
 .container {
@@ -40,13 +43,13 @@ h1 {
 }
 
 .picture {
-  margin: 26px 0;
+  margin: auto;
   display: flex;
-  justify-content: center;
+  justify-content: right;
 }
 
 .picture img {
-  width: 190px;
+  width: 190px; 
   height: 190px;
   border-radius: 50%;
   object-fit: cover;
@@ -92,5 +95,14 @@ h1 {
   color: #111827;
   padding: 25px;
   margin-top: 40px;
+}
+.books{
+  max-height: 20px;
+  width: 20px;
+  padding: auto;
+  border: solid white;
+  border-radius: 25px;
+  border-color: aquamarine;
+  margin-top: 1vh;
 }
 
