@@ -23,7 +23,7 @@ const testfile = require("testfile");
 
 testfile.createFile("test.txt","file has been created");
 
-const data = readFileSync("test.txt","utf-8");
+const testfile = readFileSync("test.txt","utf-8");
 fs.appendFileSync("test.txt","file has been appended");
 console.log(fs.readFileSync("test.txt","utf-8"));
 
