@@ -66,6 +66,12 @@ const app = express();
 
 app.use(express.json()); // Middleware to parse JSON request bodies
 
+app.use((request, response, next) => {
+  console.log("a request is coming in...");
+
+  next(); // Call the next middleware or route handler
+});
+
 
 const users = [
   {
@@ -97,6 +103,8 @@ app.post("/api/users", (request, response) => {
     user: newUser,
   });
 });
+
+
 
 
 // Home route
