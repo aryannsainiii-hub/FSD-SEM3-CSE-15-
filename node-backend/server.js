@@ -38,7 +38,6 @@
 //   console.log("Server is running on http://localhost:3000");
 // });
 
-
 // const express = require("express");
 
 // const app = express();
@@ -59,7 +58,6 @@
 //   console.log("Server running on http://localhost:3000");
 // });
 
-
 const express = require("express");
 
 const app = express();
@@ -71,7 +69,6 @@ app.use((request, response, next) => {
 
   next(); // Call the next middleware or route handler
 });
-
 
 const users = [
   {
@@ -91,11 +88,23 @@ const users = [
   },
 ];
 
+//validation for user creation
 app.post("/api/users", (request, response) => {
+  const { name, role } = request.body;
+  if (
+    !name ||
+    !role ||
+    typeof name !== "string" ||
+    typeof role !== "string" ||
+    name.trim() === "" ||
+    role.trim() === ""
+  ) {
+    return response.status(400).json({ message: "Name and role are required" });
+  }
   const newUser = {
     id: users.length + 1,
-    name: request.body.name,
-    role: request.body.role,
+    name: name,
+    role: role,
   };
   users.push(newUser);
   response.status(201).json({
@@ -103,9 +112,6 @@ app.post("/api/users", (request, response) => {
     user: newUser,
   });
 });
-
-
-
 
 // Home route
 app.get("/", (request, response) => {
@@ -125,12 +131,11 @@ app.get("/api/users", (request, response) => {
 app.get("/api/users/:id", (request, response) => {
   const userId = Number(request.params.id);
   const user = users.find((user) => user.id === userId);
-  if(!user) {
+  if (!user) {
     return response.status(404).json({ message: "User not found" });
   }
   response.json(user);
 });
-
 
 app.put("/api/users/:id", (request, response) => {
   const userId = Number(request.params.id);
@@ -139,8 +144,16 @@ app.put("/api/users/:id", (request, response) => {
     return response.status(404).json({ message: "User not found" });
   }
   //updating user details
-  user.name = request.body.name || user.name;
-  user.role = request.body.role || user.role;
+  if (!name ||
+    !role ||
+    typeof name !== "string" ||
+    typeof role !== "string" ||
+    name.trim() === "" ||
+    role.trim() === "") {
+    return response.status(400).json({ message: "Name and role are required" });
+  }
+  user.name = name;
+  user.role = role;
   response.json({
     message: "User updated successfully!",
     user: user,
@@ -160,8 +173,6 @@ app.delete("/api/users/:id", (request, response) => {
     user: deletedUser[0],
   });
 });
-
-
 
 // Start server
 app.listen(3000, () => {
