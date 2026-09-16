@@ -97,6 +97,21 @@ server.listen(4000, () => {
 });
 
 
+//using node.js build an event module , create an eventemitter,register multiple listners  for a response event,then emit the event by passing name and id as arguments  and display them in the console
+const EventEmitter = require("node:events");
+
+const eventEmitter = new EventEmitter();
+
+eventEmitter.on("response", (name, id) => {
+  console.log(`Response received for ${name}, id: ${id}`);
+});
+
+eventEmitter.on("response", (name, id) => {
+  console.log(`Processing response for ${name}, id: ${id}`);
+});
+
+eventEmitter.emit("response", "Alice", 101);
 
 
+//using node.js built in http module create an http server that runs on port 3000 add return a json response for every request
 
